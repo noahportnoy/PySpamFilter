@@ -1,5 +1,5 @@
 import file_handler
-import numpy as np
+#import numpy as np
 import training
 import os
 

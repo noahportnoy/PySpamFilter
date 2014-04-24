@@ -3,6 +3,8 @@ Todo:
 - test on email from different sources (our own email?)
 - upload writing presentation, improve, plan for live presentation
 
+MANUAL
+
 Spam Filter Improvements:
 
 - command-line arguments (train, train on this directory, spam detect on this email, rank this word, clear training data)
