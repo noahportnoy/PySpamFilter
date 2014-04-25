@@ -1,7 +1,8 @@
 Todo:
+- fix when spam ranking lookup fails (currently skipping results of "None" in spam_filter.py, line 47)
 - train on more data
 - test on email from different sources (our own email?)
-- upload writing presentation, improve, plan for live presentation
+- add presentation notes, improve powerpoint, plan for live presentation
 
 MANUAL
 
