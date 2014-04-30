@@ -1,10 +1,11 @@
 import file_handler
-#import numpy as np
+import numpy as np
 import training
 import os
 
 # returns the spam ranking of a word
 def spam_rank(word):
+	word = word.lower()
 	rank_dict = training.get_rank_dict();
 
 	if(word in rank_dict):
