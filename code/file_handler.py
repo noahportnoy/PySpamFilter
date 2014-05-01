@@ -56,47 +56,47 @@ def parseLine(current_line, words):
 	return words
 
 # DON'T trim out the header of the email!
-def parseEmail(*args):
-	if len(args) is 2:
-		file_object = args[0];
-		words = args[1];
-
-	elif len(args) is 1:
-		file_object = args[0];
-		words = [];
-
-	for current in file_object:
-		words = parseLine(current, words)
-
-	return words
-
-# Trim out the header of the email. Find the first empty line
 # def parseEmail(*args):
 # 	if len(args) is 2:
-# 		file_object = args[0];
-# 		words = args[1];
+# 		file_object = args[0]
+# 		words = args[1]
 
 # 	elif len(args) is 1:
-# 		file_object = args[0];
-# 		words = [];
+# 		file_object = args[0]
+# 		words = []
 
-# 	found = False
-# 	x=0
 # 	for current in file_object:
-# 		if found == False:
-# 			if current == '\n':
-# 				# print ("Goood to go!")
-# 				found = True
-# 			else:
-# 				x += 1
-# 				# print(current)
-# 				# if x > 100:
-# 				# 	break
-
-# 		if found == True:
-# 			words = parseLine(current, words)
+# 		words = parseLine(current, words)
 
 # 	return words
+
+# Trim out the header of the email. Find the first empty line
+def parseEmail(*args):
+	if len(args) is 2:
+		file_object = args[0]
+		words = args[1]
+
+	elif len(args) is 1:
+		file_object = args[0]
+		words = []
+
+	found = False
+	x=0
+	for current in file_object:
+		if found == False:
+			if current == '\n':
+				# print ("Goood to go!")
+				found = True
+			else:
+				x += 1
+				# print(current)
+				# if x > 100:
+				# 	break
+
+		if found == True:
+			words = parseLine(current, words)
+
+	return words
 
 def findFiles(directory):
 	file_count = 0
