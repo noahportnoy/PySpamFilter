@@ -11,6 +11,6 @@ def plot_detection_rates(plots):
 
 	plt.ylabel('detection rate')
 	plt.xlabel('false positive rate')
-	plt.title('Spam Filter Accuracy with Varying Threshold (Ignores Headers)')
+	plt.title('Spam Filter Accuracy with Varying Threshold (Considers Headers)')
 	plt.legend()
 	plt.show()
