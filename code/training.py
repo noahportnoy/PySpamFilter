@@ -11,12 +11,12 @@ def get_rank_dict():
 def print_word_freq(word):
 	word = word.lower()
 
-	if(word in bad_dict):
+	if word in bad_dict:
 		print(word, " appears", bad_dict[word], "times in bad_dict")
 	else:
 		print(word, " appears 0 times in bad_dict")
 
-	if(word in good_dict):
+	if word in good_dict:
 		print(word, " appears", good_dict[word], "times in good_dict")
 	else:
 		print(word, " appears 0 times in good_dict")
@@ -25,7 +25,7 @@ def print_word_freq(word):
 def add_to_dictionary(word, dictionary):
 	word = word.lower()
 
-	if(word in dictionary):
+	if word in dictionary:
 	    dictionary[word] += 1
 	else:
 	    dictionary[word] = 1
@@ -34,7 +34,7 @@ def add_to_dictionary(word, dictionary):
 def calculate_word_rank(good_count, bad_count):
 	ngood = file_handler.getHamEmailCount()
 	nbad = file_handler.getSpamEmailCount()
-	if(good_count + bad_count > 5):
+	if good_count + bad_count > 5:
 		temp = min(1, bad_count/nbad) / (min(1, good_count/ngood) + min(1, bad_count/nbad))
 		temp2 = min(0.99, temp)
 		rank = max(0.01, temp2)
@@ -58,18 +58,18 @@ def build_dictionaries(spam_dir, ham_dir):
 # rankings in rank_dict, returns rank_dict
 def train_spam_filter(spam_dir, ham_dir):
 
-	if(len(rank_dict) > 0):
+	if len(rank_dict) > 0:
 		print("WARNING: attempting to train spam filter when some word rankings have already been calculated")
 
 	build_dictionaries(spam_dir, ham_dir)
 
 	for word in full_dict:
-		if(word in good_dict):
+		if word in good_dict:
 			good_count = 2 * good_dict[word]
 		else:
 			good_count = 0
 
-		if(word in bad_dict):
+		if word in bad_dict:
 			bad_count = bad_dict[word]
 		else:
 			bad_count = 0

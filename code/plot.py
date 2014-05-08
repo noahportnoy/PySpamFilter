@@ -1,9 +1,8 @@
 import matplotlib.pyplot as plt
 
 
-# plot detection rate versus false positive rate
-# make multiple plots like this ^ for different methods of determining spam/non-spam (averaging, median, etc.)
-# todo: handle tuples?
+# plot detection rate versus false positive rate for different spam classification methods
+# (majority, mean average, naive Bayes)
 def plot_detection_rates(plots):
 	
 	for spam_plot, method in plots:

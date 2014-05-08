@@ -1,20 +1,5 @@
-# Spam Filter designed by N. Portnoy and A. Sousa
-import rlcompleter
-import readline
-import string
 import os
 import re
-import sys
-#
-#
-#==========================================================
-#------------------ IMPORTANT -----------------------------
-#Parente wants us to make the filter in 3 ways:
-#   -MAJORITY 
-#   -AVERAGE
-#   -AND ONE OTHER
-#
-#
 
 #Some variables that will be used below
 spam_email_count = 0
@@ -30,13 +15,13 @@ def setHamEmailCount(count):
 	ham_email_count = count
 
 def getSpamEmailCount():
-	if spam_email_count is 0:
+	if spam_email_count == 0:
 		print("WARNING: spam email count is zero!")
 
 	return spam_email_count
 
 def getHamEmailCount():
-	if ham_email_count is 0:
+	if ham_email_count == 0:
 		print("WARNING: ham email count is zero!")
 
 	return ham_email_count
@@ -57,11 +42,11 @@ def parseLine(current_line, words):
 
 # DON'T trim out the header of the email!
 def parseEmail(*args):
-	if len(args) is 2:
+	if len(args) == 2:
 		file_object = args[0]
 		words = args[1]
 
-	elif len(args) is 1:
+	elif len(args) == 1:
 		file_object = args[0]
 		words = []
 
@@ -134,7 +119,3 @@ def parseTrainingDirectory(directory):
 
 	return word_list
 
-	#OLD - but this worked... sort of
-	#[word_list.append(word.strip(string.punctuation)) for word in current_line.split()])
-
-	#print (word_list)

@@ -8,7 +8,7 @@ def spam_rank(word):
 	word = word.lower()
 	rank_dict = training.get_rank_dict()
 
-	if(word in rank_dict):
+	if word in rank_dict:
 		return rank_dict[word]
 	else:
 		return 0.4
@@ -19,8 +19,7 @@ def find_most_interesting_word(mail_dict):
 	interesting_word = ''
 
 	for word, value in mail_dict.items():
-		# print("word is", word, "and value is", value)
-		if (abs(value - 0.5) >= abs(interesting_value - 0.5)):
+		if abs(value - 0.5) >= abs(interesting_value - 0.5):
 			interesting_value = value
 			interesting_word = word
 
@@ -43,8 +42,8 @@ def spam_detect_email_file(filename, method, threshold, verbose):
 	email_words = file_handler.parseEmail(email)
 
 	for word in email_words:
-		if(word not in mail_dict):
-			if(spam_rank(word) is not None):
+		if word not in mail_dict:
+			if(spam_rank(word) != None):
 				mail_dict[word] = spam_rank(word)
 			else:
 				mail_dict[word] = 0.4
@@ -55,16 +54,16 @@ def spam_detect_email_file(filename, method, threshold, verbose):
 		interesting_word, interesting_value = find_most_interesting_word(mail_dict)
 
 		# if the email has no more words to draw from, break
-		if(len(mail_dict) == 0):
+		if len(mail_dict) == 0:
 			break
 		else:
 			del mail_dict[interesting_word]
 			interesting_dict[interesting_word] = interesting_value
 			
-			if ( verbose is True ):
+			if verbose == True:
 				print(interesting_word, ": ", interesting_value)
 
-	if( method == "mean" ):
+	if method == "mean":
 		# average of most interesting word rankings
 		prob = sum(interesting_dict.values())/len(interesting_dict)
 		if (prob >= threshold):
@@ -72,7 +71,7 @@ def spam_detect_email_file(filename, method, threshold, verbose):
 		else:
 			return 0
 
-	elif( method == "majority" ):
+	elif method == "majority":
 		count_words_above_threshold = 0
 		# count the number of words in the interesting dictionary which
 		# have values greater than the threshold
@@ -88,7 +87,7 @@ def spam_detect_email_file(filename, method, threshold, verbose):
 		else:
 			return 0
 
-	elif( method == "combined" ):
+	elif method == "combined":
 		prob_product = 1
 		one_minus_prob_product = 1
 
@@ -98,7 +97,7 @@ def spam_detect_email_file(filename, method, threshold, verbose):
 
 		prob = prob_product/(prob_product + one_minus_prob_product)
 
-		if( verbose is True ):
+		if verbose == True:
 			print()
 			if ( prob >= threshold):
 				print("This message is spam with probability", prob)
@@ -118,9 +117,7 @@ def spam_detect_email_file(filename, method, threshold, verbose):
 def spam_detect_email(email, method, threshold):
 	
 	rank_dict = training.get_rank_dict()
-	# print("Length of rank_dict is", len(rank_dict))
 
-	# mail_dict = {'hello': 0.8, 'andrew': 0.2, 'sign': 0.95, 'up': 0.6, 'for': 0.3, 'free': 0.99, 'access': 0.99, 'to': 0.4, 'the': 0.4, 'world\'s': 0.81, 'best': 0.85, 'parties': 0.94, 'around': 0.2, 'globe': 0.78, 'do': 0.1, 'you': 0.31, 'think': 0.01, 'have': 0.35, 'what': 0.06, 'it': 0.4, 'takes': 0.89}
 	mail_dict = {}
 	interesting_dict = {}
 	spam_prob_threshold = threshold
@@ -130,9 +127,8 @@ def spam_detect_email(email, method, threshold):
 	email_words = file_handler.parseEmail(email)
 
 	for word in email_words:
-		# print(word)
-		if(word not in mail_dict):
-			if(spam_rank(word) is not None):
+		if word not in mail_dict:
+			if spam_rank(word) != None:
 				mail_dict[word] = spam_rank(word)
 			else:
 				mail_dict[word] = 0.4
@@ -143,14 +139,14 @@ def spam_detect_email(email, method, threshold):
 		interesting_word, interesting_value = find_most_interesting_word(mail_dict)
 
 		# if the email has no more words to draw from, break
-		if(len(mail_dict) == 0):
+		if len(mail_dict) == 0:
 			break
 		else:
 			del mail_dict[interesting_word]
 			interesting_dict[interesting_word] = interesting_value
 			# print(interesting_word, ": ", interesting_value)
 
-	if( method == "mean" ):
+	if method == "mean":
 		# average of most interesting word rankings
 		prob = sum(interesting_dict.values())/len(interesting_dict)
 		if (prob >= threshold):
@@ -158,7 +154,7 @@ def spam_detect_email(email, method, threshold):
 		else:
 			return 0
 
-	elif( method == "majority" ):
+	elif method == "majority":
 		count_words_above_threshold = 0
 		# count the number of words in the interesting dictionary which
 		# have values greater than the threshold
@@ -168,13 +164,13 @@ def spam_detect_email(email, method, threshold):
 
 		# if there are more words above the threshold than below, mark
 		# the email as spam
-		if(count_words_above_threshold/len(interesting_dict) > 0.5):
+		if count_words_above_threshold/len(interesting_dict) > 0.5:
 			return 1
 		# otherwise, mark the email as non-spam
 		else:
 			return 0
 
-	elif( method == "combined" ):
+	elif method == "combined":
 		prob_product = 1
 		one_minus_prob_product = 1
 
@@ -185,7 +181,7 @@ def spam_detect_email(email, method, threshold):
 		prob = prob_product/(prob_product + one_minus_prob_product)
 		# print(prob)
 
-		if ( prob >= threshold):
+		if prob >= threshold:
 			return 1
 		else:
 			return 0
@@ -201,7 +197,7 @@ def test_accuracy(test_spam_dir, test_ham_dir, method):
 	count_total_ham = 0
 	print("Testing accuracy with the", method, "method")
 
-	if(method == "combined"):
+	if method == "combined":
 		thresh_range = np.arange(0.0000000000000000001,0.24,0.02)
 	else:
 		thresh_range = np.arange(0.01,0.99,0.08)
